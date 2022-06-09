@@ -15,9 +15,9 @@ const book = {
         'number': '123-456789'
     },
 
-    'dylan':{
+    'unknown':{
         'id':42,
-        'name': 'Dylan Jefferson',
+        'name': 'Unknown',
         'number': '000-000000'
     }
 }
@@ -26,12 +26,12 @@ app.get('/', (request, response) => {
     response.sendFile(__dirname + '/index.html')
 })
 
-app.get('/api/:rapperName', (request, response) => {
-    const rappersName = request.params.rapperName.toLowerCase()
-    if (book[rappersName]){
-        response.json(book[rappersName])
+app.get('/api/:contactName', (request, response) => {
+    const contactsName = request.params.contactName.toLowerCase()
+    if (book[contactsName]){
+        response.json(book[contactsName])
     } else {
-        response.json(book['dylan'])
+        response.json(book['unknown'])
     }
 })
 
