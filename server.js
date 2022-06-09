@@ -1,51 +1,40 @@
-const { response } = require('express')
 const express = require('express')
 const app = express()
-const PORT = 3000
+const PORT = 8000
 
-const phoneData = {
-    "Person 1" : {
-        "id": 1,
-        "name": "Arto Hellas", 
-        "number": "040-123456"
+const book = {
+    'arto':{
+        'id':29,
+        'name': 'Arto Hellas',
+        'number': '098-763221'
     },
 
-    "Person 2" : {
-        "id": 2,
-        "name": "Bobby Johnson", 
-        "number": "036-159859"
+    'bobby':{
+        'id':11,
+        'name': 'Bobby Johnson',
+        'number': '123-456789'
     },
 
-    "Person 3" : {
-        "id": 3,
-        "name": "Leroy Jenkins", 
-        "number": "018-098372"
-    },
-
-    "Unknown" : {
-        "id": 0,
-        "name": "unknown", 
-        "number": "000-000000"
+    'dylan':{
+        'id':42,
+        'name': 'Dylan Jefferson',
+        'number': '000-000000'
     }
 }
 
-//Read Requests
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html')
+app.get('/', (request, response) => {
+    response.sendFile(__dirname + '/index.html')
 })
 
-app.get('/api/name', (req, res) => {
-    const name = req.params.name.toLowercase()
-    if (phoneData[name]) {
-        res.json(phoneData[name])
+app.get('/api/:rapperName', (request, response) => {
+    const rappersName = request.params.rapperName.toLowerCase()
+    if (book[rappersName]){
+        response.json(book[rappersName])
     } else {
-        res.json(phoneData["Unknown"])
+        response.json(book['dylan'])
     }
 })
 
 app.listen(process.env.PORT || PORT, () => {
     console.log(`The server is listening on ${PORT}! You better go catch it!`)
 })
-
-
-
